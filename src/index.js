@@ -15,5 +15,5 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/sw.js")
     .then(() => console.log("service work registrado"))
-    .catch(() => console.log("service work não registrado"));
+    .catch(() => console.log("service work não registrad"));
 }
