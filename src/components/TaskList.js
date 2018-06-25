@@ -5,6 +5,7 @@ const TaskList = function(props) {
   const renderedTasks = props.taskList.map((task, index) => (
     <Task
       taskData={task}
+      key={index}
       onCompleteTask={props.onCompleteTask}
       index={index}
       onRemoveTask={props.onRemoveTask}
