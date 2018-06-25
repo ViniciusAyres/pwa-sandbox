@@ -2,6 +2,9 @@ import React from "react";
 import ToDoTitle from "./ToDoTitle";
 import ToDoInput from "./ToDoInput";
 import TaskList from "./TaskList";
+import * as localForage from "localforage";
+
+const DB_NAME = "ToDoList";
 
 class ToDo extends React.Component {
   state = {
@@ -30,7 +33,7 @@ class ToDo extends React.Component {
   changeText(taskText) {
     this.setState({ addTaskText: taskText });
   }
-
+  
   addTask() {
     if (this.state.addTaskText !== "") {
       const newTask = {
@@ -38,14 +41,24 @@ class ToDo extends React.Component {
         completed: false
       };
       const newTaskList = this.state.taskList.concat(newTask);
-
+      
       this.setState({
         addTaskText: "",
         taskList: newTaskList
-      });
+      }, this.updateDatabase);
     }
   }
 
+  updateDatabase(){
+    const persistentTaskList = this.state.taskList;
+    
+    localForage.setItem(DB_NAME, persistentTaskList).then(value => {
+      console.log(`Consegui persistir`, value);
+    }).catch(error => {
+      console.log(`Não consegui persistir`, error);
+    })
+  }
+  
   render() {
     return (
       <section className="section">
