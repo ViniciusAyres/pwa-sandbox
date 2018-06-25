@@ -9,6 +9,27 @@ module.exports = {
         "^https://use.fontawesome.com/releases/v5.0.7/js/all.js"
       ),
       handler: "staleWhileRevalidate"
+    },
+    {
+      urlPattern: new RegExp("/.(?:png|gif|jpg|jpeg|svg)$/"),
+      handler: "cacheFirst",
+      options: {
+        cacheName: "cache-de-imagens",
+        expiration: {
+          maxEntries: 5,
+          maxAgeSeconds: 60 * 60 * 24 * 30
+        }
+      }
+    },
+    {
+      urlPattern: new RegExp("^https://swapi.co/api/"),
+      handler: "staleWhileRevalidate",
+      options: {
+        cacheName: "cache-de-imagens",
+        expiration: {
+        maxEntries: 3
+        }
+      }
     }
   ]
 };
