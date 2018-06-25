@@ -5,17 +5,8 @@ import TaskList from "./TaskList";
 
 class ToDo extends React.Component {
   state = {
-    addTaskText: "robson",
-    taskList: [
-      {
-        text: "arnaldo",
-        completed: true
-      },
-      {
-        text: "antunes",
-        completed: false
-      }
-    ]
+    addTaskText: "",
+    taskList: []
   };
 
   completeTask(taskIndex) {
