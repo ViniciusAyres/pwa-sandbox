@@ -16,10 +16,12 @@ class ToDo extends React.Component {
     localForage
       .getItem(DB_NAME)
       .then(value => {
-        console.log('Recuperei a lista do DB ', value);
-        this.setState({
-          taskList: value
-        });
+        if (value && value.length > 0) {
+          console.log('Recuperei a lista do DB ', value);
+          this.setState({
+            taskList: value
+          });
+        }
       })
       .catch(() => {
         console.log("Ferrou");
