@@ -12,6 +12,20 @@ class ToDo extends React.Component {
     taskList: []
   };
 
+  componentWillMount() {
+    localForage
+      .getItem(DB_NAME)
+      .then(value => {
+        console.log('Recuperei a lista do DB ', value);
+        this.setState({
+          taskList: value
+        });
+      })
+      .catch(() => {
+        console.log("Ferrou");
+      });
+  }
+
   completeTask(taskIndex) {
     const localTaskList = this.state.taskList;
 
@@ -19,7 +33,7 @@ class ToDo extends React.Component {
 
     this.setState({
       taskList: localTaskList
-    });
+    }, this.updateDatabase);
   }
 
   removeTask(taskIndex) {
@@ -27,7 +41,7 @@ class ToDo extends React.Component {
 
     this.setState({
       taskList: localTaskList.filter((el, index) => index !== taskIndex)
-    });
+    }, this.updateDatabase);
   }
 
   changeText(taskText) {
